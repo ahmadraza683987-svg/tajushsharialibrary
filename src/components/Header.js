@@ -19,7 +19,8 @@ export default function Header() {
           <Link href="/">ہوم</Link>
           <Link href="/books">کتب</Link>
           <Link href="/favorites">میری پسندیدہ</Link>
-        </nav>
+<Link href="/admin/upload">ایڈمن اپلوڈ</Link>
+ </nav>
 
         <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label="Menu">☰</button>
       </div>
