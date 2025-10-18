@@ -1,95 +1,82 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// src/app/page.js
+"use client";
+
+import { useState, useMemo } from "react";
+import SearchBar from "../components/SearchBar";
+import CategorySection from "../components/CategorySection";
+import TodayBook from "../components/TodayBook";
+import FeaturedBooks from "../components/FeaturedBooks";
+import BookGrid from "../components/BookGrid";
+import booksDataRaw from "../data/books.json";
+
+/* Helper: highlight matched substring (returns HTML string) */
+function highlight(text, q) {
+  if (!q) return text;
+  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, "ig");
+  return text.replace(re, "<mark>$1</mark>");
+}
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [q, setQ] = useState("");
+  const booksData = booksDataRaw;
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  // filtered results for live search (match any char, min 1 char)
+  const results = useMemo(() => {
+    const term = q.trim();
+    if (!term) return [];
+    return booksData
+      .map(book => {
+        const titleMatch = book.title.toLowerCase().includes(term.toLowerCase());
+        const authorMatch = book.author?.toLowerCase().includes(term.toLowerCase());
+        if (titleMatch || authorMatch) {
+          return {
+            ...book,
+            highlightedTitle: highlight(book.title, term),
+            highlightedAuthor: highlight(book.author || "", term)
+          };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }, [q, booksData]);
+
+  return (
+    <section className="home-page">
+      {/* NOTE: Header is in layout; do not render header here */}
+      <div className="hero-card">
+        <h1 className="title-urdu">تاج الشریعہ لائبریری</h1>
+        <h2 className="title-roman">Tajush Sharia Library</h2>
+        <p className="lead">
+          دینی کتب کا آن لائن ذخیرہ — پڑھیں، تلاش کریں، ڈاؤنلوڈ کریں 📚
+        </p>
+      </div>
+
+      {/* Search (appears on every page in layout as per request? We keep here and other pages can include SearchBar too) */}
+      <div className="search-zone">
+        <SearchBar q={q} setQ={setQ} />
+        {/* Live results: show directly under search (above Today's book) */}
+        {results.length > 0 && (
+          <div className="live-results">
+            <h3>تلاش کے نتائج</h3>
+            <BookGrid books={results} highlightMode />
+          </div>
+        )}
+      </div>
+
+      {/* Categories */}
+      <CategorySection />
+
+      {/* Today's Book (above featured) */}
+      <TodayBook books={booksData} />
+
+      {/* Featured Books */}
+      <FeaturedBooks books={booksData} />
+
+      {/* Also show some recent/all books below as grid */}
+      <section style={{ marginTop: 20 }}>
+        <h3 className="section-title">تمام کتابیں</h3>
+        <BookGrid books={booksData.slice(0, 12)} />
+      </section>
+    </section>
   );
 }
