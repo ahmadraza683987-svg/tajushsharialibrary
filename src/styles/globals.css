@@ -367,3 +367,241 @@ mark{background:yellow;padding:0 2px;border-radius:2px}
 .upload-form button {
   align-self: flex-end;
 }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 720px) {
+  .menu-toggle {
+    display: block;
+  }
+  .header-nav {
+    display: none;
+  }
+  .header-nav.open {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    flex-direction: column;
+    background: var(--primary-dark);
+    padding: 10px 14px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    z-index: 999;
+  }
+  .header-nav.open a,
+  .header-nav.open button {
+    color: #fff;
+    padding: 8px;
+  }
+}
+.history-title {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: var(--primary-dark);
+}
+
+.history-item {
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.history-item:hover {
+  background: #f0f6ff;
+}
+
+mark {
+  background: #ffeb3b;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+/* === BOOK DETAIL PAGE === */
+.book-detail-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.detail-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.book-title-urdu {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  font-weight: bold;
+}
+
+.book-title-roman {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.book-author {
+  margin-top: 8px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.book-detail-section {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.detail-cover {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.book-desc {
+  color: #333;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 720px) {
+  .book-detail-section {
+    grid-template-columns: 1fr;
+  }
+}
+/* === PDF VIEWER PAGE === */
+.pdf-viewer-page {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  background: var(--primary-dark);
+  color: #fff;
+}
+
+.viewer-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.viewer-frame-wrap {
+  width: 100%;
+  height: 90vh;
+  background: #000;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.no-pdf {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+/* === RELATED BOOKS SECTION === */
+.related-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eaeaea;
+}
+
+.related-section h3 {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+}
+
+.related-section .book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.related-section .card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.related-section .card:hover {
+  transform: translateY(-5px);
+}
+
+.related-section .card-cover {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.related-section .card-body {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.related-section .btn.small {
+  margin-top: 0.6rem;
+  display: inline-block;
+}
+/* === Upload Form Styles === */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+.upload-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.upload-form .btn {
+  align-self: flex-start;
+}
+.upload-msg {
+  margin-top: 10px;
+  font-weight: 600;
+}

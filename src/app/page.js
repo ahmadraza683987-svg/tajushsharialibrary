@@ -5,28 +5,33 @@ import CategorySection from "../components/CategorySection";
 import FeaturedBooks from "../components/FeaturedBooks";
 import TodayBook from "../components/TodayBook";
 import BookGrid from "../components/BookGrid";
-import { fetchBooks } from "../utils/fetchBooks"; // ✅ Firestore سے ڈیٹا لانے کیلئے
+import { fetchBooks } from "../utils/fetchBooks"; // Firestore سے ڈیٹا لانے کیلئے
+import { getAllBooks } from "../utils/getBooks"; // localStorage + books.json
 
 export default function Home() {
   const [q, setQ] = useState("");
-  const [books, setBooks] = useState([]); // ✅ Firestore books
+  const [books, setBooks] = useState([]);
   const [results, setResults] = useState([]);
 
+  // 📚 کتابیں لوڈ کرو (Firestore + Local merge)
   useEffect(() => {
     async function loadBooks() {
-      const data = await fetchBooks();
-      setBooks(data);
+      const cloudBooks = await fetchBooks();
+      const localBooks = getAllBooks();
+      const merged = [...localBooks, ...cloudBooks];
+      setBooks(merged);
     }
     loadBooks();
   }, []);
 
-  // 🔍 Search Logic
+  // 🔍 سرچ کیلئے highlight فنکشن
   const highlight = (text, term) => {
     if (!term) return text;
     const regex = new RegExp(`(${term})`, "gi");
     return text.replace(regex, "<mark>$1</mark>");
   };
 
+  // ⚡ سرچ کا حساب صرف q یا books بدلنے پر
   const resultsMemo = useMemo(() => {
     if (!q.trim()) return [];
     return books
@@ -51,6 +56,7 @@ export default function Home() {
 
   return (
     <section className="home-page">
+      {/* Hero Section */}
       <div className="hero-card">
         <h1 className="title-urdu">تاج الشریعہ لائبریری</h1>
         <h2 className="title-roman">Tajush Sharia Library</h2>
@@ -64,8 +70,26 @@ export default function Home() {
         <SearchBar q={q} setQ={setQ} />
         {results.length > 0 && (
           <div className="live-results">
-            <h3>تلاش کے نتائج</h3>
-            <BookGrid books={results} highlightMode />
+            <h3>🔍 تلاش کے نتائج</h3>
+            <div className="book-grid">
+              {results.map((b) => (
+                <div key={b.id} className="book-card">
+                  <img
+                    src={b.cover || "/default-cover.jpg"}
+                    alt={b.title}
+                    className="book-cover"
+                  />
+                  <h4
+                    className="book-title"
+                    dangerouslySetInnerHTML={{ __html: b.highlightedTitle }}
+                  />
+                  <p
+                    className="book-author"
+                    dangerouslySetInnerHTML={{ __html: b.highlightedAuthor }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

@@ -1,26 +1,17 @@
 // src/utils/getBooks.js
-export default function getAllBooks() {
-  let staticBooks = [];
-  let customBooks = [];
 
+import booksData from "../data/books.json";
+
+export function getAllBooks() {
   try {
-    staticBooks = require("../data/books.json");
-  } catch {
-    staticBooks = [];
+    const localData = localStorage.getItem("booksData");
+    if (localData) {
+      const parsed = JSON.parse(localData);
+      return [...booksData, ...parsed];
+    }
+    return booksData;
+  } catch (error) {
+    console.error("❌ Error reading books:", error);
+    return booksData;
   }
-
-  if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("customBooks");
-    if (saved) customBooks = JSON.parse(saved);
-  }
-
-  const combined = [...staticBooks, ...customBooks];
-
-  // Randomize for featured books
-  const shuffled = [...combined].sort(() => 0.5 - Math.random());
-
-  const todayBook = shuffled[0] || null;
-  const featured = shuffled.slice(1, 5);
-
-  return { combined, todayBook, featured };
 }
