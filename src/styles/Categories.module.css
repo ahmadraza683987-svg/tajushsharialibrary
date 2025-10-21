@@ -1,0 +1,23 @@
+.sectionTitle {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.categoryCard {
+  background: linear-gradient(180deg, #fff, #f2f8ff);
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--primary);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}

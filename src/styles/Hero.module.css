@@ -1,0 +1,18 @@
+.hero {
+  background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+  color: white;
+  padding: 3rem 1rem;
+  text-align: center;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+.hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+.hero h2 { font-size: 1.3rem; font-weight: 500; color: #e2e8f0; }
+.hero p  { color: #f8f9fa; max-width:600px; margin:0 auto; }
+
+@media (max-width:600px){
+  .hero h1{font-size:2rem;}
+  .hero h2{font-size:1rem;}
+  .hero p{font-size:0.95rem;}
+}

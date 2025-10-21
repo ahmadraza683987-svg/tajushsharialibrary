@@ -1,0 +1,40 @@
+/* 🌐 src/styles/Responsive.css */
+
+@media (max-width: 720px) {
+  .header-inner {
+    padding: 12px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .header-nav.open {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    right: 12px;
+    flex-direction: column;
+    background: var(--primary-dark);
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .book-detail .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-cover {
+    height: 180px;
+  }
+}
+
+mark {
+  background: yellow;
+  padding: 0 2px;
+  border-radius: 2px;
+}

@@ -1,0 +1,28 @@
+.book-detail-page {
+  max-width:900px;
+  margin:2rem auto;
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:1.5rem;
+}
+.detail-header { text-align:center; margin-bottom:1.5rem; }
+.book-title-urdu { font-size:1.8rem; color:var(--primary-dark); font-weight:bold; }
+.book-title-roman { font-size:1rem; color:var(--muted); }
+.book-author { color:#555; margin-top:8px; }
+.book-detail-section {
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:20px;
+}
+.detail-cover {
+  width:100%;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.book-desc { color:#333; line-height:1.6; }
+.actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+@media (max-width:720px) {
+  .book-detail-section { grid-template-columns:1fr; }
+}

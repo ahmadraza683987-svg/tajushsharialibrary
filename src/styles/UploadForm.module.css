@@ -1,0 +1,22 @@
+.upload-form {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  margin-top:20px;
+  max-width:500px;
+  margin-inline:auto;
+}
+.upload-form input {
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:1rem;
+}
+.upload-form .btn {
+  align-self:flex-start;
+}
+.upload-msg { margin-top:10px; font-weight:600; }

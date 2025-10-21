@@ -2,6 +2,7 @@
 "use client";
 import Link from "next/link";
 import FavoriteButton from "./FavoriteButton";
+import styles from "../styles/BookGrid.module.css";
 
 export default function BookGrid({ books = [], title }) {
   if (!books.length) {

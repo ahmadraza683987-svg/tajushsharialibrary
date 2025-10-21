@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import booksData from "../data/books.json";
+import styles from "../styles/SearchBar.module.css";
+
 
 export default function SearchBar() {
   const [q, setQ] = useState("");

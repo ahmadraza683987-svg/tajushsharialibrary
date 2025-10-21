@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import booksData from "../data/books.json";
+import styles from "../styles/TodayBook.module.css";
+
 
 export default function TodayBook() {
   const [todayBook, setTodayBook] = useState(null);
